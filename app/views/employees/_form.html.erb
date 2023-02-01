@@ -6,7 +6,6 @@
       <% end %>
     </ul>
   <% end %>
-
   <%= form_with model: employee, local: true do |f| %>
     <div class="form_group">
       <%= f.label :number %>
@@ -32,6 +31,16 @@
     </div>
 
     <div class="form_group">
+      <%= f.label :email %>
+      <%= f.email_field :email %>
+    </div>
+
+    <div class="form_group">
+      <%= f.label :date_of_joining %>
+      <%= f.date_field :date_of_joining %>
+    </div>
+
+    <div class="form_group">
       <%= f.label :department_id %>
       <%= f.collection_select(:department_id, @departments, :id, :name)%>
     </div>
@@ -46,6 +55,10 @@
       <%= f.check_box :employee_info_manage_auth, :as => :boolean %>
     </div>
 
+    <div class="form_group">
+      <%= f.label :news_posting_auth, class: 'checkbox_label' %>
+      <%= f.check_box :news_posting_auth, :as => :boolean %>
+    </div>
     <%= f.submit '保存' %>
   <% end %>
 </div>
