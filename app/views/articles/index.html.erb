@@ -1,0 +1,26 @@
+<div class="article_index">
+  <% if flash.notice.present? %>
+    <p><%= flash.notice %></p>
+  <% end %>
+  <% if current_user.news_posting_auth %>
+    <p><%= link_to '新規投稿', new_article_path %></p>
+  <% end %>
+  <table class="article_table">
+    <thead>
+      <tr>
+        <th>タイトル</th>
+        <th>投稿日</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @articles.each do |article| %>
+        <tr>
+          <th><%= article.title %></th>
+          <th><%= article.author %></th>
+          <th>編集</th>
+          <th>削除</th>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
