@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_01_131821) do
+ActiveRecord::Schema.define(version: 2023_02_03_052415) do
 
   create_table "articles", force: :cascade do |t|
     t.string "title"
@@ -42,7 +42,9 @@ ActiveRecord::Schema.define(version: 2023_02_01_131821) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "news_posting_auth", default: false, null: false
+    t.index ["account"], name: "index_employees_on_account", unique: true
     t.index ["department_id"], name: "index_employees_on_department_id"
+    t.index ["number"], name: "index_employees_on_number", unique: true
     t.index ["office_id"], name: "index_employees_on_office_id"
   end
 
