@@ -5,6 +5,7 @@ class ArticlesController < ApplicationController
 
   def index
     @articles = Article.all
+    @articles = Article.order("created_at #{sort_direction}")
   end
 
   def new
@@ -57,5 +58,9 @@ class ArticlesController < ApplicationController
     return if current_user.news_posting_auth
 
     redirect_to articles_path, notice: 'お知らせ投稿権限がありません。'
+  end
+
+  def sort_direction
+    params[:direction] || 'asc'
   end
 end
