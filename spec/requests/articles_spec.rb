@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Articles', type: :request do
-  let!(:article){ create(:article, author: employee.id ) }
-  let(:office){ create(:office) }
-  let(:department){ create(:department) }
-  let!(:employee){ create(:employee, office_id: office.id, department_id: department.id) }
+  let!(:article) { create(:article, author: employee.id ) }
+  let(:office) { create(:office) }
+  let(:department) { create(:department) }
+  let(:employee) { create(:employee, office_id: office.id, department_id: department.id) }
   let(:params) { { article: attributes_for(:article) } }
 
   before do

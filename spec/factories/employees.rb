@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :employee do
-    number { 1 }
+    sequence(:number) { |n| n }
     last_name { 'yamada' }
     first_name { 'taro' }
-    account { 'yamataro' }
+    sequence(:account) { |n|"yamataro#{n}" }
     password { 1234 }
     email { 'yama@example.com' }
     date_of_joining { '2020/10/01' }
