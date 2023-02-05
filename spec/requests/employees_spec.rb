@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'Employees', type: :request do
   let(:employee) { create(:employee, office_id: offise.id, department_id: department.id) }
-  let!(:quited_employee) { create(:employee, office_id: offise.id, department_id: department.id) }
+  let!(:quited_employee) { create(:employee, office_id: office.id, department_id: department.id) }
   let(:department) { create(:department) }
-  let(:offise) { create(:office) }
+  let(:office) { create(:office) }
   let(:params) { { employee: attributes_for(:employee, office_id: offise.id, department_id: department.id) } }
 
   before do
