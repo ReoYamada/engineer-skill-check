@@ -33,6 +33,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
   gem 'pry-byebug'
+  gem 'webdrivers'
+  gem 'capybara'
 end
 
 group :development do
