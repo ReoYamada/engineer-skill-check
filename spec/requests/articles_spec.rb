@@ -1,15 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe 'Articles', type: :request do
-  let!(:article) { create(:article, author: employee.id ) }
+  let!(:article) { create(:article, author: employee.id) }
   let(:office) { create(:office) }
   let(:department) { create(:department) }
   let(:employee) { create(:employee, office_id: office.id, department_id: department.id) }
   let(:params) { { article: attributes_for(:article) } }
 
   before do
-    session_params =  { employees: { account: employee.account, password: employee.password } }
-    post "/login", params: session_params
+    session_params = { employees: { account: employee.account, password: employee.password } }
+    post '/login', params: session_params
   end
 
   describe 'お知らせ一覧ページ' do
@@ -39,9 +39,9 @@ RSpec.describe 'Articles', type: :request do
 
   describe 'お知らせ登録' do
     it '正常なレスポンスを返すこと' do
-      expect{
+      expect do
         post articles_path, params: params
-      }.to change(Article, :count).by(1)
+      end.to change(Article, :count).by(1)
       expect(response).to redirect_to articles_path
     end
   end
@@ -73,9 +73,9 @@ RSpec.describe 'Articles', type: :request do
 
   describe 'お知らせ削除' do
     it '正常なレスポンスを返すこと' do
-      expect{
+      expect do
         delete article_path(article)
-      }.to change(Article, :count).by(-1)
+      end.to change(Article, :count).by(-1)
       expect(response).to redirect_to articles_path
     end
   end

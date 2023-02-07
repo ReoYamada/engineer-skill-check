@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Article, type: :model do
-  let(:article) { build(:article, author:employee) }
+  let(:article) { build(:article, author: employee) }
   let(:employee) { create(:employee, office_id: office.id, department_id: department.id) }
   let(:department) { create(:department) }
   let(:office) { create(:office) }

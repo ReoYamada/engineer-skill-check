@@ -9,7 +9,7 @@ RSpec.describe 'Profiles', type: :system do
     driven_by(:rack_test)
     login_as(employee)
   end
-  
+
   describe 'プロフィールページテスト' do
     before do
       click_on employee.number
@@ -41,32 +41,32 @@ RSpec.describe 'Profiles', type: :system do
 
     context 'プロフィール内容が正常' do
       it '投稿が成功し社員一覧ページにアクセスすること' do
-        expect{
+        expect do
           fill_in 'profile_profile', with: 'hogehoge'
           click_on '保存'
           expect(current_path).to eq employees_path
           expect(page).to have_content 'プロフィールを登録しました'
-        }.to change(Profile, :count).by(1)
+        end.to change(Profile, :count).by(1)
       end
     end
 
     context 'プロフィール内容が未入力' do
       it '投稿が失敗し未入力エラーメッセージが表示されること' do
-        expect{
+        expect do
           fill_in 'profile_profile', with: ''
           click_on '保存'
           expect(page).to have_content 'プロフィール を入力してください'
-        }.to change(Profile, :count).by(0)
+        end.to change(Profile, :count).by(0)
       end
     end
 
     context 'プロフィール内容が300文字を超える' do
       it '投稿が失敗し文字数エラーメッセージが表示されること' do
-        expect{
+        expect do
           fill_in 'profile_profile', with: 'a' * 301
           click_on '保存'
           expect(page).to have_content 'プロフィール は300文字以内で入力してください'
-        }.to change(Profile, :count).by(0)
+        end.to change(Profile, :count).by(0)
       end
     end
   end

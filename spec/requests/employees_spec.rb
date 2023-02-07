@@ -8,8 +8,8 @@ RSpec.describe 'Employees', type: :request do
   let(:params) { { employee: attributes_for(:employee, office_id: office.id, department_id: department.id) } }
 
   before do
-    session_params =  { employees: { account: employee.account, password: employee.password } }
-    post "/login", params: session_params
+    session_params = { employees: { account: employee.account, password: employee.password } }
+    post '/login', params: session_params
   end
 
   describe '社員紹介ページ' do
@@ -44,9 +44,9 @@ RSpec.describe 'Employees', type: :request do
 
   describe '社員情報登録' do
     it '正常なレスポンスを返すこと' do
-      expect{
+      expect do
         post employees_path, params: params
-      }.to change(Employee, :count).by(1)
+      end.to change(Employee, :count).by(1)
       expect(response).to redirect_to employees_path
     end
   end
@@ -92,7 +92,7 @@ RSpec.describe 'Employees', type: :request do
   describe '社員情報削除' do
     it '正常なレスポンスを返すこと' do
       delete employee_path(quited_employee)
-      expect(response).to redirect_to employee_path
+      expect(response).to redirect_to employees_path
     end
   end
 end

@@ -4,7 +4,9 @@ RSpec.describe 'Employees', type: :system do
   let(:office) { create(:office) }
   let(:department) { create(:department) }
   let!(:employee) { create(:employee, office_id: office.id, department_id: department.id) }
-  let!(:existence_employee) { create(:employee, number: 'existence', account: 'existence', office_id: office.id, department_id: department.id) }
+  let!(:existence_employee) do
+    create(:employee, number: 'existence', account: 'existence', office_id: office.id, department_id: department.id)
+  end
 
   before do
     driven_by(:rack_test)
@@ -58,93 +60,93 @@ RSpec.describe 'Employees', type: :system do
 
       context '入力内容が正常' do
         it '登録が成功し一覧ページに表示されること' do
-          expect{
+          expect do
             click_on '保存'
             expect(current_path).to eq employees_path
             expect(page).to have_content 'new_number'
             expect(page).to have_content 'new_first_name'
             expect(page).to have_content 'new_last_name'
-          }.to change(Employee, :count).by(1)
+          end.to change(Employee, :count).by(1)
         end
       end
-      
+
       context '社員番号が未入力' do
         it '登録が失敗し未入力エラーメッセージが表示されること' do
-          expect{
+          expect do
             fill_in 'employee_number', with: ''
             click_on '保存'
             expect(page).to have_content '社員番号 を入力してください'
-          }.to change(Employee, :count).by(0)
+          end.to change(Employee, :count).by(0)
         end
       end
 
       context '社員番号が既に登録されている' do
         it '登録が失敗しエラーメッセージが表示される' do
-          expect{
+          expect do
             fill_in 'employee_number', with: 'existence'
             click_on '保存'
             expect(page).to have_content '社員番号 はすでに存在します'
-          }.to change(Employee, :count).by(0)
+          end.to change(Employee, :count).by(0)
         end
       end
 
       context '氏名（姓）が未入力' do
         it '登録が失敗し未入力エラーメッセージが表示されること' do
-          expect{
+          expect do
             fill_in 'employee_last_name', with: ''
             click_on '保存'
             expect(page).to have_content '氏名（姓） を入力してください'
-          }.to change(Employee, :count).by(0)
+          end.to change(Employee, :count).by(0)
         end
       end
 
       context '氏名（名）が未入力' do
         it '登録が失敗し未入力エラーメッセージが表示されること' do
-          expect{
+          expect do
             fill_in 'employee_first_name', with: ''
             click_on '保存'
             expect(page).to have_content '氏名（名） を入力してください'
-          }.to change(Employee, :count).by(0)
+          end.to change(Employee, :count).by(0)
         end
       end
 
       context 'アカウントが未入力' do
         it '登録が失敗し未入力エラーメッセージが表示されること' do
-          expect{
+          expect do
             fill_in 'employee_account', with: ''
             click_on '保存'
             expect(page).to have_content 'アカウント を入力してください'
-          }.to change(Employee, :count).by(0)
+          end.to change(Employee, :count).by(0)
         end
       end
 
       context 'アカウントが既に登録されている' do
         it '登録が失敗しエラーメッセージが表示される' do
-          expect{
+          expect do
             fill_in 'employee_account', with: 'existence'
             click_on '保存'
             expect(page).to have_content 'アカウント はすでに存在します'
-          }.to change(Employee, :count).by(0)
+          end.to change(Employee, :count).by(0)
         end
       end
 
       context 'メールアドレスが未入力' do
         it '登録が失敗し未入力エラーメッセージが表示されること' do
-          expect{
+          expect do
             fill_in 'employee_email', with: ''
             click_on '保存'
             expect(page).to have_content 'メールアドレス を入力してください'
-          }.to change(Employee, :count).by(0)
+          end.to change(Employee, :count).by(0)
         end
       end
 
       context '入社年月日が未入力' do
         it '登録が失敗し未入力エラーメッセージが表示されること' do
-          expect{
+          expect do
             fill_in 'employee_date_of_joining', with: ''
             click_on '保存'
             expect(page).to have_content '入社年月日 を入力してください'
-          }.to change(Employee, :count).by(0)
+          end.to change(Employee, :count).by(0)
         end
       end
     end
@@ -152,7 +154,7 @@ RSpec.describe 'Employees', type: :system do
 
   describe '社員情報編集テスト' do
     before do
-      click_on '編集', match: :first 
+      click_on '編集', match: :first
     end
 
     it '編集をクリックしたとき社員情報編集画面にアクセスすること' do
@@ -191,7 +193,7 @@ RSpec.describe 'Employees', type: :system do
           expect(page).to have_content 'edit_last_name'
         end
       end
-      
+
       context '社員番号が未入力' do
         it '登録が失敗し未入力エラーメッセージが表示されること' do
           fill_in 'employee_number', with: ''
@@ -260,10 +262,10 @@ RSpec.describe 'Employees', type: :system do
 
   describe '社員情報削除テスト' do
     it '削除をクリックすると、社員情報が非表示になること' do
-      expect{
+      expect do
         click_on '削除', match: :first
         expect(page).to have_content "社員「#{employee.last_name} #{employee.first_name}」を削除しました。"
-      }.to change(Article, :count).by(0)
+      end.to change(Article, :count).by(0)
     end
   end
 end

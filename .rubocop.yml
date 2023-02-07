@@ -32,3 +32,11 @@ Style/FrozenStringLiteralComment:
 
 Rails/SkipsModelValidations:
   Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*"
+
+Rails/FilePath:
+  Exclude:
+    - "spec/**/*"

@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Employee, type: :model do
-  let!(:existence_employee) { create(:employee, number: 'existence', account: 'existence', office_id: office.id, department_id: department.id) }
+  let!(:existence_employee) do
+    create(:employee, number: 'existence', account: 'existence', office_id: office.id, department_id: department.id)
+  end
   let(:employee) { build(:employee, office_id: office.id, department_id: department.id) }
   let(:department) { create(:department) }
   let(:office) { create(:office) }

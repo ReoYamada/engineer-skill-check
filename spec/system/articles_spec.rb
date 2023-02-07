@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Articles', type: :system do
-  let!(:article) { create(:article, author: employee.id ) }
+  let!(:article) { create(:article, author: employee.id) }
   let(:office) { create(:office) }
   let(:department) { create(:department) }
   let!(:employee) { create(:employee, office_id: office.id, department_id: department.id) }
@@ -42,33 +42,33 @@ RSpec.describe 'Articles', type: :system do
     describe '投稿内容テスト' do
       context '投稿内容が正常' do
         it '投稿が成功し一覧ページに表示されること' do
-          expect{
+          expect do
             fill_in 'タイトル', with: 'title'
             click_on '投稿'
             expect(current_path).to eq articles_path
             expect(page).to have_content 'お知らせ「title」を登録しました'
             expect(page).to have_content 'title'
-          }.to change(Article, :count).by(1)
+          end.to change(Article, :count).by(1)
         end
       end
 
       context 'タイトルが未入力' do
         it '投稿が失敗し未入力エラーメッセージが表示されること' do
-          expect{
+          expect do
             fill_in 'タイトル', with: ''
             click_on '投稿'
             expect(page).to have_content 'タイトル を入力してください'
-          }.to change(Article, :count).by(0)
+          end.to change(Article, :count).by(0)
         end
       end
 
       context 'タイトルが50文字を超える' do
         it '投稿が失敗し文字数エラーメッセージが表示されること' do
-          expect{
+          expect do
             fill_in 'タイトル', with: 'a' * 51
             click_on '投稿'
             expect(page).to have_content 'タイトル は50文字以内で入力してください'
-          }.to change(Article, :count).by(0)
+          end.to change(Article, :count).by(0)
         end
       end
     end
@@ -119,10 +119,10 @@ RSpec.describe 'Articles', type: :system do
     end
 
     it '削除ボタンをクリックすると、投稿内容が削除されること' do
-      expect{
+      expect do
         click_on '削除'
         expect(page).to have_content "お知らせ「#{article.title}」を削除しました。"
-      }.to change(Article, :count).by(-1)
+      end.to change(Article, :count).by(-1)
     end
   end
 end

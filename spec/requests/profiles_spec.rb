@@ -7,8 +7,8 @@ RSpec.describe 'Profiles', type: :request do
   let(:params) { { profile: attributes_for(:profile, employee_id: employee.id) } }
 
   before do
-    session_params =  { employees: { account: employee.account, password: employee.password } }
-    post "/login", params: session_params
+    session_params = { employees: { account: employee.account, password: employee.password } }
+    post '/login', params: session_params
   end
 
   describe '社員プロフィール参照ページ' do
@@ -19,7 +19,7 @@ RSpec.describe 'Profiles', type: :request do
     it '正常なレスポンスを返すこと' do
       expect(response).to have_http_status(200)
     end
-    
+
     it '社員番号を取得できること' do
       expect(response.body).to include employee.number
     end
@@ -36,11 +36,10 @@ RSpec.describe 'Profiles', type: :request do
 
   describe '社員プロフィール登録' do
     it '正常なレスポンスを返すこと' do
-      expect{
+      expect do
         post employee_profiles_path(employee), params: params
-      }.to change(Profile, :count).by(1)
+      end.to change(Profile, :count).by(1)
       expect(response).to redirect_to employees_path
     end
   end
 end
-
