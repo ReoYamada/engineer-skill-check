@@ -8,10 +8,7 @@ RSpec.describe 'Articles', type: :system do
 
   before do
     driven_by(:rack_test)
-    visit login_path
-    fill_in 'employees_account', with: employee.account
-    fill_in 'employees_password', with: employee.password
-    click_on 'ログイン'
+    login_as(employee)
   end
 
   describe 'お知らせ一覧ページテスト' do
