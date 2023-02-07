@@ -121,7 +121,7 @@ RSpec.describe 'Articles', type: :system do
     it '削除ボタンをクリックすると、投稿内容が削除されること' do
       expect{
         click_on '削除'
-        expect(page).to have_content 'お知らせ「hege」を削除しました。'
+        expect(page).to have_content "お知らせ「#{article.title}」を削除しました。"
       }.to change(Article, :count).by(-1)
     end
   end

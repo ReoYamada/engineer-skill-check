@@ -262,7 +262,7 @@ RSpec.describe 'Employees', type: :system do
     it '削除をクリックすると、社員情報が非表示になること' do
       expect{
         click_on '削除', match: :first
-        expect(page).to have_content '社員「hege」を削除しました。'
+        expect(page).to have_content "社員「#{employee.last_name} #{employee.first_name}」を削除しました。"
       }.to change(Article, :count).by(0)
     end
   end

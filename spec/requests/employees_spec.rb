@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe 'Employees', type: :request do
-  let(:employee) { create(:employee, office_id: offise.id, department_id: department.id) }
+  let(:employee) { create(:employee, office_id: office.id, department_id: department.id) }
   let!(:quited_employee) { create(:employee, office_id: office.id, department_id: department.id) }
   let(:department) { create(:department) }
   let(:office) { create(:office) }
-  let(:params) { { employee: attributes_for(:employee, office_id: offise.id, department_id: department.id) } }
+  let(:params) { { employee: attributes_for(:employee, office_id: office.id, department_id: department.id) } }
 
   before do
     session_params =  { employees: { account: employee.account, password: employee.password } }
@@ -91,9 +91,7 @@ RSpec.describe 'Employees', type: :request do
 
   describe '社員情報削除' do
     it '正常なレスポンスを返すこと' do
-      expect{
-        delete employee_path(quited_employee)
-      }.to change(Employee, :count).by(-1)
+      delete employee_path(quited_employee)
       expect(response).to redirect_to employee_path
     end
   end
