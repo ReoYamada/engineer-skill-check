@@ -1,10 +1,12 @@
-<div class="employee_index">
+<div class="employee_index bg-secondary-subtle bg-gradient">
   <% if flash.notice.present? %>
-    <p><%= flash.notice %></p>
+    <div class="alert alert-primary" role="alert">
+      <%= flash.notice %>
+    </div>
   <% end %>
 
   <% if current_user.employee_info_manage_auth %>
-    <p class="new_employee"><%= link_to '新規追加', new_employee_path, class: 'btn' %></p>
+    <%= link_to '新規追加', new_employee_path, class: 'btn btn-primary mt-3' %>
   <% end %>
 
   <table class="employee_table table table-striped">

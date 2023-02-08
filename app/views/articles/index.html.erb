@@ -1,15 +1,17 @@
 <div class="article_index">
   <% if flash.notice.present? %>
-    <p><%= flash.notice %></p>
+    <div class="alert alert-primary" role="alert">
+      <%= flash.notice %>
+    </div>
   <% end %>
   <% if current_user.news_posting_auth %>
-    <p class="new_article"><%= link_to '新規投稿', new_article_path, class: 'btn' %></p>
+    <p class="new_article"><%= link_to '新規投稿', new_article_path, class: 'btn btn-primary mt-3' %></p>
   <% end %>
   <table class="article_table table table-striped">
     <thead>
       <tr>
         <th>タイトル</th>
-        <th><%= sort_order "created_at", "投稿日" %></th>
+        <th class="ps-5"><%= sort_order "created_at", "投稿日" %></th>
       </tr>
     </thead>
     <tbody>
@@ -20,8 +22,10 @@
           <% if current_user.id == article.author %>
             <th class="btn_th"><%= link_to '編集', edit_article_path(article),class: "btn btn-outline-primary" %></th>
             <th class="btn_th"><%= link_to '削除', article_path(article), method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, class: "btn btn-outline-primary" %></th>
+          <% else %>
+            <th colspan="2"></th>
           <% end %>
-          </tr>
+        </tr>
       <% end %>
     </tbody>
   </table>
