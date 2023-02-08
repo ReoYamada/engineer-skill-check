@@ -1,23 +1,25 @@
 <%= javascript_pack_tag "header.js" %>
-<div id='menu'>
-  <ul class='left_menu'>
-    <li><%= link_to 'お知らせ', articles_path %></li>
-    <li><%= link_to '社員紹介', employees_path %></li>
-  </ul>
-  <ul class='right_menu'>
-    <li>
-      <button class='dropdown__btn' id='dropdown__btn'>
-        <%= "#{@current_user.last_name} #{@current_user.first_name}" %>
-      </button>
-    </li>
-  </ul>
-</div>
-<div id='dropdown_menu'>
-  <div class='right_menu'>
-    <div class='dropdown_items'>
-      <ul>
-        <li><%= link_to 'ログアウト', logout_path, method: :delete %></li>
-      </ul>
+<div class="pt-1 bg-info">
+  <div id='menu'>
+    <ul class='left_menu'>
+      <li><%= link_to 'お知らせ', articles_path, class: "text-white text-decoration-none" %></li>
+      <li><%= link_to '社員紹介', employees_path, class: "text-white text-decoration-none" %></li>
+    </ul>
+    <ul class='right_menu'>
+      <li>
+        <button class='dropdown__btn' id='dropdown__btn'>
+          <%= "#{@current_user.last_name} #{@current_user.first_name}" %>
+        </button>
+      </li>
+    </ul>
+  </div>
+  <div id='dropdown_menu'>
+    <div class='right_menu'>
+      <div class='dropdown_items'>
+        <ul>
+          <li><%= link_to 'ログアウト', logout_path, method: :delete %></li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
