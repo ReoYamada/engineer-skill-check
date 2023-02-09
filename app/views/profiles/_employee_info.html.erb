@@ -1,14 +1,14 @@
-<div class="row">
-  <span class="label">社員番号</span>
-  <span><%= employee.number %></span>
+<div class="mt-4 row">
+  <p class="col-2 fw-bold">社員番号</p>
+  <p class="col"><%= employee.number %></p>
 </div>
 
-<div class="row">
-  <span class="label">氏名</span>
-  <span><%= "#{employee.last_name} #{employee.first_name}" %></span>
+<div class="mt-3 row">
+  <p class="col-2 fw-bold">氏名</p>
+  <p class="col"><%= "#{employee.last_name} #{employee.first_name}" %></p>
 </div>
 
-<div class="row">
-  <span class="label">部署</span>
-  <span><%= employee.department.name %></span>
+<div class="mt-3 row">
+  <p class="col-2 fw-bold">部署</p>
+  <p class="col"><%= employee.department.name %></p>
 </div>

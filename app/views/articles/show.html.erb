@@ -1,7 +1,8 @@
-<%= link_to '一覧に戻る', articles_path, class: 'btn' %>
+<%= link_to '一覧に戻る', articles_path, class: 'btn btn-primary mt-3' %>
 <div>
-  <div>
-    <p>タイトル  <%= @article.title %></p>
+  <div class="mt-3 row">
+    <p class="col-auto fw-bold">タイトル</p>
+    <p class="col"><%= @article.title %></p>
   </div>
   <div>
     <p><%= @article.content %></p>

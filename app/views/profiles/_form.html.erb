@@ -1,17 +1,19 @@
 <% if profile.errors.present? %>
-  <ul>
-    <% profile.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-  </ul>
+  <div class="alert alert-danger">
+    <ul>
+      <% profile.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
 <% end %>
 
 <%= render partial: 'employee_info', locals: { employee: @employee } %>
 
 <%= form_with model: [employee, profile], local: true do |f| %>
   <div class="form_group">
-    <%= f.label :profile, class: 'label' %>
-    <%= f.text_area :profile %>
+    <%= f.label :profile, class: 'form-label' %>
+    <%= f.text_area :profile, class: 'form-control', rows: 5 %>
   </div>
-  <%= f.submit '保存' %>
+  <%= f.submit '保存', class: "btn btn-primary mt-2" %>
 <% end %>
