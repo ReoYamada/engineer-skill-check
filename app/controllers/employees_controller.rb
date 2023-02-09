@@ -1,4 +1,5 @@
 class EmployeesController < ApplicationController
+  require 'csv'
   before_action :set_employee, only: %i[edit update destroy]
   before_action :set_form_option, only: %i[new create edit update]
 
@@ -8,6 +9,14 @@ class EmployeesController < ApplicationController
 
   def new
     @employee = Employee.new
+    @employees = Employee.all
+
+    respond_to do |format|
+      format.html
+      format.csv do |csv|
+        send_employees_csv(@employees)
+      end
+    end
   end
 
   def create
@@ -62,5 +71,24 @@ class EmployeesController < ApplicationController
 
   def sort_direction
     params[:direction] || 'asc'
+  end
+
+  def send_employees_csv(employees)
+    csv_data = CSV.generate do |csv|
+      column_names = %w(社員番号 氏名（姓） 氏名（名） 入社年月日 部署 オフィス)
+      csv << column_names
+      employees.each do |employee|
+        column_values = [
+          employee.number,
+          employee.last_name,
+          employee.first_name,
+          employee.date_of_joining,
+          employee.office.name,
+          employee.department.name
+        ]
+        csv << column_values
+      end
+    end
+    send_data(csv_data, filename: "社員情報一覧.csv")
   end
 end

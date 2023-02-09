@@ -18,25 +18,26 @@
       </tr>
     </thead>
     <tbody>
-    <% @employees.each do |employee| %>
-      <tr class="employee">
-        <% if employee.profiles.active.present? %>
-          <% if employee == current_user %>
-            <th><%= link_to employee.number, edit_employee_profile_path(employee, employee.profiles.active.first) %></th>
+      <% @employees.each do |employee| %>
+        <tr class="employee">
+          <% if employee.profiles.active.present? %>
+            <% if employee == current_user %>
+              <th><%= link_to employee.number, edit_employee_profile_path(employee, employee.profiles.active.first) %></th>
+            <% else %>
+              <th><%= link_to employee.number, employee_profile_path(employee, employee.profiles.active.first) %></th>
+            <% end %>
           <% else %>
-            <th><%= link_to employee.number, employee_profile_path(employee, employee.profiles.active.first) %></th>
+            <th><%= link_to employee.number, employee_profiles_path(employee) %></th>
           <% end %>
-        <% else %>
-          <th><%= link_to employee.number, employee_profiles_path(employee) %></th>
-        <% end %>
-        <th class="name"><%= "#{employee.last_name} #{employee.first_name}" %></th>
-        <th><%= employee.department.name %></th>
-        <% if current_user.employee_info_manage_auth %>
-          <th class="btn_th"><%= link_to '編集', edit_employee_path(employee), class: 'btn btn-outline-primary' %></th>
-          <th class="btn_th"><%= link_to '削除', employee, method: :delete, data: { confirm: "社員「#{employee.first_name} #{employee.last_name}」を削除します。よろしいですか？" }, class: 'btn btn-outline-primary' %></th>
-        <% end %>
-      </tr>
-    <% end %>
+          <th class="name"><%= "#{employee.last_name} #{employee.first_name}" %></th>
+          <th><%= employee.department.name %></th>
+          <% if current_user.employee_info_manage_auth %>
+            <th class="btn_th"><%= link_to '編集', edit_employee_path(employee), class: 'btn btn-outline-primary' %></th>
+            <th class="btn_th"><%= link_to '削除', employee, method: :delete, data: { confirm: "社員「#{employee.first_name} #{employee.last_name}」を削除します。よろしいですか？" }, class: 'btn btn-outline-primary' %></th>
+          <% end %>
+        </tr>
+      <% end %>
     </tbody>
   </table>
+  <%= link_to "csvで出力する", new_employee_path(format: :csv), class: "btn btn-success mt-3" %>
 </div>
