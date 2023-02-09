@@ -3,7 +3,7 @@ class Profile < ApplicationRecord
 
   validates :profile, length: { minimum: 1, maximum: 300 }
 
-  scope :active, -> {
+  scope :active, lambda {
     where(deleted_at: nil)
   }
 end

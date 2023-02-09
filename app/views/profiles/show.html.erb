@@ -1,10 +1,10 @@
 <div class="profile_space">
-  <p class="employee_index"><%= link_to '一覧に戻る', employees_path, class: 'btn' %></p>
+  <%= link_to '一覧に戻る', employees_path, class: 'btn btn-primary mt-3' %>
 
   <%= render partial: 'employee_info', locals: { employee: @employee } %>
 
-  <div class="row">
-    <span class="label">プロフィール</span>
-    <span class="profile_value"><%= @profile.profile %></span>
+  <div class="mt-3 row">
+    <p class="fw-bold">プロフィール</p>
+    <p class="profile_value"><%= @profile.profile %></p>
   </div>
 </div>
