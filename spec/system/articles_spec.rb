@@ -5,6 +5,7 @@ RSpec.describe 'Articles', type: :system do
   let(:office) { create(:office) }
   let(:department) { create(:department) }
   let!(:employee) { create(:employee, office_id: office.id, department_id: department.id) }
+  let!(:another_employee) { create(:employee, office_id: office.id, department_id: department.id) }
 
   before do
     driven_by(:rack_test)
@@ -70,6 +71,43 @@ RSpec.describe 'Articles', type: :system do
             expect(page).to have_content 'タイトル は50文字以内で入力してください'
           end.to change(Article, :count).by(0)
         end
+      end
+    end
+  end
+
+  describe 'お知らせ詳細テスト' do
+    before do
+      visit articles_path
+      click_on article.title
+    end
+
+    it 'お知らせタイトルをクリックしたときお知らせ詳細ページにアクセスすること' do
+      expect(current_path).to eq article_path(article)
+    end
+
+    it '詳細ページにお知らせタイトルが表示されること' do
+      expect(page).to have_content article.title
+    end
+
+    it '詳細ページにお知らせ内容が表示されること' do
+      expect(page).to have_content article.content
+    end
+
+    describe '既読機能テスト' do
+      it '詳細ページに社員人数が表示されていること' do
+        expect(page).to have_content Employee.count
+      end
+
+      it '詳細ページに既読人数が表示されていること' do
+        expect(page).to have_content EmployeeArticle.where(article_id: article.id).count
+      end
+
+      it '他のユーザーが詳細ページを確認したとき既読人数が増えていること' do
+        expect do
+          click_on 'ログアウト'
+          login_as(another_employee)
+          visit article_path(article)
+        end.to change(EmployeeArticle.where(article_id: article.id), :count).by(1)
       end
     end
   end
