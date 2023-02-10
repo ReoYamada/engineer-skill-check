@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_03_052415) do
+ActiveRecord::Schema.define(version: 2023_02_09_133225) do
 
   create_table "articles", force: :cascade do |t|
     t.string "title"
@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(version: 2023_02_03_052415) do
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "employee_articles", force: :cascade do |t|
+    t.integer "employee_id", null: false
+    t.integer "article_id", null: false
+    t.boolean "already_read", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["article_id"], name: "index_employee_articles_on_article_id"
+    t.index ["employee_id"], name: "index_employee_articles_on_employee_id"
   end
 
   create_table "employees", force: :cascade do |t|
@@ -44,6 +54,7 @@ ActiveRecord::Schema.define(version: 2023_02_03_052415) do
     t.boolean "news_posting_auth", default: false, null: false
     t.index ["account"], name: "index_employees_on_account", unique: true
     t.index ["department_id"], name: "index_employees_on_department_id"
+    t.index ["number", "account"], name: "index_employees_on_number_and_account", unique: true
     t.index ["number"], name: "index_employees_on_number", unique: true
     t.index ["office_id"], name: "index_employees_on_office_id"
   end
@@ -64,6 +75,8 @@ ActiveRecord::Schema.define(version: 2023_02_03_052415) do
     t.index ["employee_id"], name: "index_profiles_on_employee_id"
   end
 
+  add_foreign_key "employee_articles", "articles"
+  add_foreign_key "employee_articles", "employees"
   add_foreign_key "employees", "departments"
   add_foreign_key "employees", "offices"
   add_foreign_key "profiles", "employees"
