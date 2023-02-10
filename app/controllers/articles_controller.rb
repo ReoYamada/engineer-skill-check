@@ -24,6 +24,9 @@ class ArticlesController < ApplicationController
 
   def show
     @employees = Employee.where(deleted_at: nil)
+    unless EmployeeArticle.find_by(article_id: params[:id], employee_id: session[:user_id]).present?
+      EmployeeArticle.create(article_id: params[:id], employee_id: session[:user_id])
+    end
     @already_read = EmployeeArticle.where(article_id: params[:id])
   end
 
