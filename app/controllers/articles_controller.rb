@@ -6,6 +6,7 @@ class ArticlesController < ApplicationController
   def index
     @articles = Article.all
     @articles = Article.order("created_at #{sort_direction}")
+    @read_articles = EmployeeArticle.where(employee_id: session[:user_id])
   end
 
   def new
@@ -15,13 +16,20 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(article_params)
     if @article.save
+      EmployeeArticle.create(employee_id: session[:user_id], article_id: @article.id)
       redirect_to articles_path, notice: "お知らせ「#{@article.title}」を登録しました。"
     else
       render :new
     end
   end
 
-  def show; end
+  def show
+    @employees = Employee.where(deleted_at: nil)
+    if EmployeeArticle.find_by(article_id: params[:id], employee_id: session[:user_id]).blank?
+      EmployeeArticle.create(article_id: params[:id], employee_id: session[:user_id])
+    end
+    @already_read = EmployeeArticle.where(article_id: params[:id])
+  end
 
   def edit; end
 

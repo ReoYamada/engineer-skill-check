@@ -13,7 +13,7 @@ class EmployeesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv do |csv|
+      format.csv do
         send_employees_csv(@employees)
       end
     end
@@ -75,7 +75,7 @@ class EmployeesController < ApplicationController
 
   def send_employees_csv(employees)
     csv_data = CSV.generate do |csv|
-      column_names = %w(社員番号 氏名（姓） 氏名（名） 入社年月日 部署 オフィス)
+      column_names = %w[社員番号 氏名（姓） 氏名（名） 入社年月日 部署 オフィス]
       csv << column_names
       employees.each do |employee|
         column_values = [
@@ -89,6 +89,6 @@ class EmployeesController < ApplicationController
         csv << column_values
       end
     end
-    send_data(csv_data, filename: "社員情報一覧.csv")
+    send_data(csv_data, filename: '社員情報一覧.csv')
   end
 end

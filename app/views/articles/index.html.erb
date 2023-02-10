@@ -1,9 +1,4 @@
 <div class="article_index">
-  <% if flash.notice.present? %>
-    <div class="alert alert-primary" role="alert">
-      <%= flash.notice %>
-    </div>
-  <% end %>
   <% if current_user.news_posting_auth %>
     <p class="new_article"><%= link_to '新規投稿', new_article_path, class: 'btn btn-primary mt-3' %></p>
   <% end %>
@@ -17,7 +12,12 @@
     <tbody>
       <% @articles.each do |article| %>
         <tr>
-          <th><%= link_to article.title, article_path(article) %></th>
+          <th>
+            <% if @read_articles.where(article_id: article.id).blank? %>
+              <span>new message!</span>
+            <% end %>
+            <%= link_to article.title, article_path(article), class: 'ms-2' %>
+          </th>
           <th><%= article.created_at.to_s(:datetime_jp) %></th>
           <% if current_user.id == article.author %>
             <th class="btn_th"><%= link_to '編集', edit_article_path(article),class: "btn btn-outline-primary" %></th>

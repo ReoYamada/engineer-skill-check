@@ -23,4 +23,14 @@
     </ul>
   </div>
 </nav>
+<% if flash[:new_message].present? %>
+  <div class="alert alert-warning" role="alert">
+    <%= flash[:new_message] %>
+  </div>
+<% end %>
+<% if flash[:notice].present? %>
+  <div class="alert alert-primary" role="alert">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
 
