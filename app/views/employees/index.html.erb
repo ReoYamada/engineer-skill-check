@@ -1,9 +1,4 @@
 <div class="employee_index bg-secondary-subtle bg-gradient">
-  <% if flash.notice.present? %>
-    <div class="alert alert-primary" role="alert">
-      <%= flash.notice %>
-    </div>
-  <% end %>
 
   <% if current_user.employee_info_manage_auth %>
     <%= link_to '新規追加', new_employee_path, class: 'btn btn-primary mt-3' %>

@@ -40,3 +40,7 @@ Metrics/BlockLength:
 Rails/FilePath:
   Exclude:
     - "spec/**/*"
+
+MethodLength:
+  CountComments: true
+  Max: 18
